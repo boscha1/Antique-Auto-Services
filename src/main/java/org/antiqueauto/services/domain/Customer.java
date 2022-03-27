@@ -3,7 +3,7 @@ package org.antiqueauto.services.domain;
 import java.util.List;
 
 public class Customer {
-    private final Long id;
+    private Long id;
     private String firstName;
     private String lastName;
     private List<Car> cars;
@@ -17,6 +17,10 @@ public class Customer {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
