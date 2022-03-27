@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SampleData {
     public static final List<Car> cars = new ArrayList<>() {{
-        cars.add(new Car(
+        add(new Car(
                 1L,
                 "toyota",
                 "highlander",
@@ -17,7 +17,7 @@ public class SampleData {
         ));
     }};
     public static final List<Customer> customers = new ArrayList<>() {{
-        customers.add(new Customer(
+        add(new Customer(
                 1L,
                 "anthony",
                 "bosch",
