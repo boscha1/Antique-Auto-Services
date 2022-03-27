@@ -58,5 +58,11 @@ public class SampleData {
                 cars
         ));
     }};
+
+    public static boolean existsById(Long customerId) {
+        return customers
+                .stream()
+                .anyMatch(customer -> customer.getId().equals(customerId));
+    }
 }
 
