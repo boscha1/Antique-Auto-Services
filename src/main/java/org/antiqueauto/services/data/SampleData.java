@@ -24,12 +24,37 @@ public class SampleData {
                         new Date(2022, Calendar.APRIL, 15)
                 )
         ));
+        add(new Car(
+                "toyota",
+                "highlander",
+                1990L,
+                "these are additional notes about the car",
+                new BillingInfo(
+                        20.0,
+                        .10,
+                        20.0,
+                        new Date(2022, Calendar.APRIL, 1),
+                        new Date(2022, Calendar.APRIL, 15)
+                )
+        ));
     }};
     public static final List<Customer> customers = new ArrayList<>() {{
         add(new Customer(
                 1L,
                 "anthony",
                 "bosch",
+                cars
+        ));
+        add(new Customer(
+                2L,
+                "joe",
+                "smith",
+                cars
+        ));
+        add(new Customer(
+                3L,
+                "jim",
+                "smith",
                 cars
         ));
     }};
