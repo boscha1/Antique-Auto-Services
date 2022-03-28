@@ -1,26 +1,27 @@
 package org.antiqueauto.services.domain;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Customer {
-    private Long id;
+    private UUID customerId;
     private String firstName;
     private String lastName;
     private List<Car> cars;
 
-    public Customer(Long id, String firstName, String lastName, List<Car> cars) {
-        this.id = id;
+    public Customer(UUID id, String firstName, String lastName, List<Car> cars) {
+        this.customerId = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.cars = cars;
     }
 
-    public Long getId() {
-        return id;
+    public UUID getCustomerId() {
+        return customerId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCustomerId(UUID customerId) {
+        this.customerId = customerId;
     }
 
     public String getFirstName() {

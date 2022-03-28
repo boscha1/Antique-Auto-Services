@@ -6,14 +6,13 @@ import org.antiqueauto.services.exception.customer.CustomerNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CustomerService {
 
     public Customer create(Customer customer) {
         try {
-            Customer lastCustomer = SampleData.customers.get(SampleData.customers.size()-1);
-            customer.setId(lastCustomer.getId()+1);
             SampleData.customers.add(customer);
             return customer;
         } catch (Exception e) {
@@ -25,15 +24,15 @@ public class CustomerService {
         return SampleData.customers;
     }
 
-    public Customer findById(Long customerId) {
+    public Customer findById(UUID customerId) {
         return SampleData.customers
                 .stream()
-                .filter(customer -> customer.getId().equals(customerId))
+                .filter(customer -> customer.getCustomerId().equals(customerId))
                 .findFirst()
                 .orElseThrow(() -> new CustomerNotFoundException(customerId));
     }
 
-    public Customer update(Long customerId, Customer updatedCustomer) {
+    public Customer update(UUID customerId, Customer updatedCustomer) {
         if (!SampleData.existsById(customerId)) {
             throw new CustomerNotFoundException(customerId);
         }
@@ -45,7 +44,7 @@ public class CustomerService {
         return customer;
     }
 
-    public Long deleteById(Long customerId) {
+    public UUID deleteById(UUID customerId) {
         if (!SampleData.existsById(customerId)) {
             throw new CustomerNotFoundException(customerId);
         }
