@@ -44,4 +44,17 @@ public class CustomerService {
 
         return customer;
     }
+
+    public Long deleteById(Long customerId) {
+        if (!SampleData.existsById(customerId)) {
+            throw new CustomerNotFoundException(customerId);
+        }
+
+        try {
+            SampleData.customers.remove(findById(customerId));
+            return customerId;
+        } catch (Exception e) {
+            throw new IllegalStateException(e.getMessage());
+        }
+    }
 }
