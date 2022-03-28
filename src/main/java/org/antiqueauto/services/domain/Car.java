@@ -1,22 +1,28 @@
 package org.antiqueauto.services.domain;
 
 public class Car {
-    private final Long id;
+    private String code;
     private String make;
     private String model;
     private Long year;
     private String notes;
+    private BillingInfo billingInfo;
 
-    public Car(Long id, String make, String model, Long year, String notes) {
-        this.id = id;
+    public Car(String make, String model, Long year, String notes, BillingInfo billingInfo) {
+        this.code = "test";
         this.make = make;
         this.model = model;
         this.year = year;
         this.notes = notes;
+        this.billingInfo = billingInfo;
     }
 
-    public Long getId() {
-        return id;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMake() {
@@ -49,5 +55,13 @@ public class Car {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public BillingInfo getBillingInfo() {
+        return billingInfo;
+    }
+
+    public void setBillingInfo(BillingInfo billingInfo) {
+        this.billingInfo = billingInfo;
     }
 }
