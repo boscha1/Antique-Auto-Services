@@ -4,10 +4,7 @@ import org.antiqueauto.services.domain.BillingInfo;
 import org.antiqueauto.services.domain.Car;
 import org.antiqueauto.services.domain.Customer;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class SampleData {
     public static final List<Car> cars = new ArrayList<>() {{
@@ -40,29 +37,29 @@ public class SampleData {
     }};
     public static final List<Customer> customers = new ArrayList<>() {{
         add(new Customer(
-                1L,
+                UUID.fromString("1"),
                 "anthony",
                 "bosch",
                 cars
         ));
         add(new Customer(
-                2L,
+                UUID.fromString("2"),
                 "joe",
                 "smith",
                 cars
         ));
         add(new Customer(
-                3L,
+                UUID.fromString("3"),
                 "jim",
                 "smith",
                 cars
         ));
     }};
 
-    public static boolean existsById(Long customerId) {
+    public static boolean existsById(UUID customerId) {
         return customers
                 .stream()
-                .anyMatch(customer -> customer.getId().equals(customerId));
+                .anyMatch(customer -> customer.getCustomerId().equals(customerId));
     }
 }
 
