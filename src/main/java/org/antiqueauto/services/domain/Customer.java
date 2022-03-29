@@ -3,24 +3,24 @@ package org.antiqueauto.services.domain;
 import java.util.List;
 
 public class Customer {
-    private Integer customerId;
+    private Integer id;
     private String firstName;
     private String lastName;
     private List<Car> cars;
 
     public Customer(Integer id, String firstName, String lastName, List<Car> cars) {
-        this.customerId = id;
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.cars = cars;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {

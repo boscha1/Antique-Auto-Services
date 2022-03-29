@@ -17,6 +17,7 @@ public class CarRowMapper implements RowMapper<Car> {
     @Override
     public Car mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Car(
+                rs.getInt("id"),
                 rs.getString("code"),
                 rs.getString("make"),
                 rs.getString("model"),

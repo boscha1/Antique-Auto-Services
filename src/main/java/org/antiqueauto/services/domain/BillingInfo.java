@@ -3,6 +3,7 @@ package org.antiqueauto.services.domain;
 import java.util.Date;
 
 public class BillingInfo {
+    private Integer id;
     private Double hourlyRate;
     private Double materialsPercentage;
     private Double insuranceRate;
@@ -26,13 +27,15 @@ public class BillingInfo {
         this.secondInvoiceMailed = false;
     }
 
-    public BillingInfo(Double hourlyRate,
+    public BillingInfo(Integer id,
+                       Double hourlyRate,
                        Double materialsPercentage,
                        Double insuranceRate,
                        Date firstInvoice,
                        Boolean firstInvoiceMailed,
                        Date secondInvoice,
                        Boolean secondInvoiceMailed) {
+        this.id = id;
         this.hourlyRate = hourlyRate;
         this.materialsPercentage = materialsPercentage;
         this.insuranceRate = insuranceRate;
@@ -40,6 +43,10 @@ public class BillingInfo {
         this.firstInvoiceMailed = firstInvoiceMailed;
         this.secondInvoice = secondInvoice;
         this.secondInvoiceMailed = secondInvoiceMailed;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Double getHourlyRate() {

@@ -11,6 +11,7 @@ public class BillingInfoRowMapper implements RowMapper<BillingInfo> {
     @Override
     public BillingInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new BillingInfo(
+                rs.getInt("id"),
                 rs.getDouble("hourly_rate"),
                 rs.getDouble("materials_percentage"),
                 rs.getDouble("insurance_rate"),
