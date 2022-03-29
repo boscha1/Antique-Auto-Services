@@ -1,6 +1,7 @@
 package org.antiqueauto.services.repository.customer;
 
 import org.antiqueauto.services.domain.Customer;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
