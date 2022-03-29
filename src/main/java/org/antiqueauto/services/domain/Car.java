@@ -9,6 +9,10 @@ public class Car {
     private String notes;
     private BillingInfo billingInfo;
 
+    public Car() {
+
+    }
+
     public Car(String make, String model, Long year, String notes, BillingInfo billingInfo) {
         this.code = "test";
         this.make = make;

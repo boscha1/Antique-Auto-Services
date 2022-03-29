@@ -12,6 +12,9 @@ public class BillingInfo {
     private Date secondInvoice;
     private Boolean secondInvoiceMailed;
 
+    public BillingInfo() {
+    }
+
     public BillingInfo(Double hourlyRate,
                        Double materialsPercentage,
                        Double insuranceRate,
