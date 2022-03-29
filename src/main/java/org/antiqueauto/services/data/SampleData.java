@@ -59,7 +59,7 @@ public class SampleData {
     public static boolean existsById(Integer customerId) {
         return customers
                 .stream()
-                .anyMatch(customer -> customer.getCustomerId().equals(customerId));
+                .anyMatch(customer -> customer.getId().equals(customerId));
     }
 }
 
