@@ -8,5 +8,5 @@ public interface CarDAO {
     List<Car> findAll();
     Car findById(Integer car);
     Car save(Car customer);
-
+    List<Car> findByCustomerId(Integer customerId);
 }
