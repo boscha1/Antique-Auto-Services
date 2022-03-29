@@ -6,7 +6,6 @@ import org.antiqueauto.services.exception.customer.CustomerNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class CustomerService {
@@ -24,7 +23,7 @@ public class CustomerService {
         return SampleData.customers;
     }
 
-    public Customer findById(UUID customerId) {
+    public Customer findById(Integer customerId) {
         return SampleData.customers
                 .stream()
                 .filter(customer -> customer.getCustomerId().equals(customerId))
@@ -32,7 +31,7 @@ public class CustomerService {
                 .orElseThrow(() -> new CustomerNotFoundException(customerId));
     }
 
-    public Customer update(UUID customerId, Customer updatedCustomer) {
+    public Customer update(Integer customerId, Customer updatedCustomer) {
         if (!SampleData.existsById(customerId)) {
             throw new CustomerNotFoundException(customerId);
         }
@@ -44,7 +43,7 @@ public class CustomerService {
         return customer;
     }
 
-    public UUID deleteById(UUID customerId) {
+    public Integer deleteById(Integer customerId) {
         if (!SampleData.existsById(customerId)) {
             throw new CustomerNotFoundException(customerId);
         }

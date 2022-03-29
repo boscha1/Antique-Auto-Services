@@ -1,11 +1,9 @@
 package org.antiqueauto.services.exception.customer;
 
-import java.util.UUID;
-
 public class CustomerNotFoundException extends RuntimeException {
-    private final UUID customerId;
-    public CustomerNotFoundException(UUID customerId) {
-        super(String.format("Customer %s not found", customerId));
+    private final Integer customerId;
+    public CustomerNotFoundException(Integer customerId) {
+        super(String.format("Customer %d not found", customerId));
         this.customerId = customerId;
     }
 

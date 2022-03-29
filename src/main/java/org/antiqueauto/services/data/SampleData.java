@@ -37,26 +37,26 @@ public class SampleData {
     }};
     public static final List<Customer> customers = new ArrayList<>() {{
         add(new Customer(
-                UUID.fromString("1"),
+                1,
                 "anthony",
                 "bosch",
                 cars
         ));
         add(new Customer(
-                UUID.fromString("2"),
+                2,
                 "joe",
                 "smith",
                 cars
         ));
         add(new Customer(
-                UUID.fromString("3"),
+                3,
                 "jim",
                 "smith",
                 cars
         ));
     }};
 
-    public static boolean existsById(UUID customerId) {
+    public static boolean existsById(Integer customerId) {
         return customers
                 .stream()
                 .anyMatch(customer -> customer.getCustomerId().equals(customerId));
