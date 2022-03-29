@@ -15,7 +15,9 @@ public class BillingInfoRowMapper implements RowMapper<BillingInfo> {
                 rs.getDouble("materials_percentage"),
                 rs.getDouble("insurance_rate"),
                 rs.getDate("first_invoice"),
-                rs.getDate("second_invoice")
+                rs.getBoolean("first_invoice_mailed"),
+                rs.getDate("second_invoice"),
+                rs.getBoolean("second_invoice_mailed")
         );
     }
 }

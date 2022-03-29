@@ -10,13 +10,14 @@ import java.sql.SQLException;
 public class CarRowMapper implements RowMapper<Car> {
     private final BillingInfoRowMapper rowMapper;
 
-    public CarRowMapper(BillingInfoRowMapper rowMapper) {
-        this.rowMapper = rowMapper;
+    public CarRowMapper() {
+        this.rowMapper = new BillingInfoRowMapper();
     }
 
     @Override
     public Car mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Car(
+                rs.getString("code"),
                 rs.getString("make"),
                 rs.getString("model"),
                 rs.getLong("year"),
