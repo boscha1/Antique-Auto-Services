@@ -13,7 +13,7 @@ CREATE TABLE car(
     year        int4 NOT NULL,
     notes       VARCHAR,
     FOREIGN KEY (customer_id)
-        REFERENCES customer (id)
+        REFERENCES customer (id) ON DELETE CASCADE
 );
 
 CREATE TABLE billing_info(
@@ -27,5 +27,5 @@ CREATE TABLE billing_info(
     second_invoice        DATE,
     second_invoice_mailed BOOLEAN NOT NULL,
     FOREIGN KEY (car_id)
-        REFERENCES car(id)
+        REFERENCES car(id) ON DELETE CASCADE
 );
