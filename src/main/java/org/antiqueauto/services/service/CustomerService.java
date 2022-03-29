@@ -1,6 +1,5 @@
 package org.antiqueauto.services.service;
 
-import org.antiqueauto.services.data.SampleData;
 import org.antiqueauto.services.domain.Customer;
 import org.antiqueauto.services.exception.customer.CustomerNotFoundException;
 import org.antiqueauto.services.repository.car.CarDAO;
@@ -23,7 +22,6 @@ public class CustomerService {
 
     public Customer create(Customer customer) {
         try {
-            // SampleData.customers.add(customer);
             return customerDAO.save(customer);
         } catch (Exception e) {
             throw new IllegalStateException(e.getMessage());
@@ -31,44 +29,31 @@ public class CustomerService {
     }
 
     public List<Customer> findAll() {
-        // return SampleData.customers;
         List<Customer> customers = customerDAO.findAll();
         customers.stream()
-                .peek(customer -> customer.setCars(carDAO.findByCustomerId(customer.getCustomerId())))
+                .peek(customer -> customer.setCars(carDAO.findByCustomerId(customer.getId())))
                 .collect(Collectors.toList());
         return customers;
     }
 
     public Customer findById(Integer customerId) {
-        return SampleData.customers
-                .stream()
-                .filter(customer -> customer.getCustomerId().equals(customerId))
-                .findFirst()
+        Customer customer = customerDAO.findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException(customerId));
-    }
-
-    public Customer update(Integer customerId, Customer updatedCustomer) {
-        if (!SampleData.existsById(customerId)) {
-            throw new CustomerNotFoundException(customerId);
-        }
-        Customer customer = findById(customerId);
-        customer.setFirstName(updatedCustomer.getFirstName());
-        customer.setLastName(updatedCustomer.getLastName());
-        customer.setCars(updatedCustomer.getCars());
-
+        customer.setCars(carDAO.findByCustomerId(customerId));
         return customer;
     }
 
-    public Integer deleteById(Integer customerId) {
-        if (!SampleData.existsById(customerId)) {
-            throw new CustomerNotFoundException(customerId);
-        }
+    public Customer update(Integer customerId, Customer updatedCustomer) {
+        Customer customer = findById(customerId);
+        customer.setFirstName(updatedCustomer.getFirstName());
+        customer.setLastName(updatedCustomer.getLastName());
 
-        try {
-            SampleData.customers.remove(findById(customerId));
-            return customerId;
-        } catch (Exception e) {
-            throw new IllegalStateException(e.getMessage());
-        }
+        return customerDAO.update(customer);
+    }
+
+    public Integer deleteById(Integer customerId) {
+        Customer customer = findById(customerId);
+        customerDAO.delete(customer.getId());
+        return customerId;
     }
 }
