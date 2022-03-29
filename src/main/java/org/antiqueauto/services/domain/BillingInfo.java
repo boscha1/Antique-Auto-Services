@@ -26,6 +26,22 @@ public class BillingInfo {
         this.secondInvoiceMailed = false;
     }
 
+    public BillingInfo(Double hourlyRate,
+                       Double materialsPercentage,
+                       Double insuranceRate,
+                       Date firstInvoice,
+                       Boolean firstInvoiceMailed,
+                       Date secondInvoice,
+                       Boolean secondInvoiceMailed) {
+        this.hourlyRate = hourlyRate;
+        this.materialsPercentage = materialsPercentage;
+        this.insuranceRate = insuranceRate;
+        this.firstInvoice = firstInvoice;
+        this.firstInvoiceMailed = firstInvoiceMailed;
+        this.secondInvoice = secondInvoice;
+        this.secondInvoiceMailed = secondInvoiceMailed;
+    }
+
     public Double getHourlyRate() {
         return hourlyRate;
     }

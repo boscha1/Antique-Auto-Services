@@ -17,6 +17,15 @@ public class Car {
         this.billingInfo = billingInfo;
     }
 
+    public Car(String code, String make, String model, long year, String notes, BillingInfo billingInfo) {
+        this.code = code;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.notes = notes;
+        this.billingInfo = billingInfo;
+    }
+
     public String getCode() {
         return code;
     }
