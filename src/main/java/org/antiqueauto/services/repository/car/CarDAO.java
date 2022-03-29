@@ -9,4 +9,5 @@ public interface CarDAO {
     Car findById(Integer car);
     Car save(Car customer);
     List<Car> findByCustomerId(Integer customerId);
+    void delete(Integer id);
 }

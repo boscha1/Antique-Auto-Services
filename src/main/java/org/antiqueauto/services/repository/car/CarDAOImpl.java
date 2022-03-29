@@ -34,24 +34,38 @@ public class CarDAOImpl implements CarDAO {
 
     @Override
     public List<Car> findByCustomerId(Integer customerId) {
+        String sql = "select car.id," +
+                "       car.code,\n" +
+                "       car.make,\n" +
+                "       car.model,\n" +
+                "       car.year,\n" +
+                "       car.notes,\n" +
+                "       bi.id,\n" +
+                "       bi.hourly_rate,\n" +
+                "       bi.materials_percentage,\n" +
+                "       bi.insurance_rate,\n" +
+                "       bi.first_invoice,\n" +
+                "       bi.first_invoice_mailed,\n" +
+                "       bi.second_invoice,\n" +
+                "       bi.second_invoice_mailed\n" +
+                "from car join billing_info bi on car.id = bi.car_id\n" +
+                "where customer_id=?;";
         try {
-            String query = "select car.code,\n" +
-                    "       car.make,\n" +
-                    "       car.model,\n" +
-                    "       car.year,\n" +
-                    "       car.notes,\n" +
-                    "       bi.hourly_rate,\n" +
-                    "       bi.materials_percentage,\n" +
-                    "       bi.insurance_rate,\n" +
-                    "       bi.first_invoice,\n" +
-                    "       bi.first_invoice_mailed,\n" +
-                    "       bi.second_invoice,\n" +
-                    "       bi.second_invoice_mailed\n" +
-                    "from car join billing_info bi on car.id = bi.car_id\n" +
-                    "where customer_id=?;";
-            return jdbcTemplate.query(query, new CarRowMapper(), customerId);
+            return jdbcTemplate.query(sql, new CarRowMapper(), customerId);
         } catch (DataAccessException e) {
-            throw new IllegalStateException(e.getMessage());
+            throw new IllegalStateException(INVALID_DATA_MESSAGE);
+        }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        String carSql = "delete from car where id=?;";
+        String billingSql = "delete from billing_info where car_id=?;";
+        try {
+            jdbcTemplate.update(billingSql, id);
+            jdbcTemplate.update(carSql, id);
+        } catch (DataAccessException e) {
+            throw new IllegalStateException(INVALID_DATA_MESSAGE);
         }
     }
 }
