@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CustomerDAO {
     List<Customer> findAll();
     Optional<Customer> findById(Integer customerId);
-    Customer save(Customer customer);
-    Customer update(Customer customer);
+    Optional<Customer> save(Customer customer);
+    Optional<Customer> update(Customer customer);
     void delete(Integer id);
 }

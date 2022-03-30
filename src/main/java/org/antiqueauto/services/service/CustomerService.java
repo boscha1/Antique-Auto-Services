@@ -22,7 +22,8 @@ public class CustomerService {
 
     public Customer create(Customer customer) {
         try {
-            return customerDAO.save(customer);
+            return customerDAO.save(customer)
+                    .orElseThrow(() -> new CustomerNotFoundException(customer.getId()));
         } catch (Exception e) {
             throw new IllegalStateException(e.getMessage());
         }
@@ -48,7 +49,7 @@ public class CustomerService {
         customer.setFirstName(updatedCustomer.getFirstName());
         customer.setLastName(updatedCustomer.getLastName());
 
-        return customerDAO.update(customer);
+        return customerDAO.update(customer).orElseThrow(() -> new CustomerNotFoundException(customerId));
     }
 
     public Integer deleteById(Integer customerId) {

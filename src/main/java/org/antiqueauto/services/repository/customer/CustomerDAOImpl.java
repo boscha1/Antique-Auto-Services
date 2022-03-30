@@ -3,8 +3,12 @@ package org.antiqueauto.services.repository.customer;
 import org.antiqueauto.services.domain.Customer;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +16,14 @@ import java.util.Optional;
 public class CustomerDAOImpl implements CustomerDAO {
 
     private final JdbcTemplate jdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
     private final static String INVALID_DATA_MESSAGE = "Invalid Data Access";
 
-    public CustomerDAOImpl(JdbcTemplate jdbcTemplate) {
+    public CustomerDAOImpl(JdbcTemplate jdbcTemplate, DataSource dataSource) {
         this.jdbcTemplate = jdbcTemplate;
+        this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("customer")
+                .usingGeneratedKeyColumns("id");
     }
 
     @Override
@@ -41,25 +49,27 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer save(Customer customer) {
-        String sql = "insert into customer(first_name, last_name) values (?, ?);";
+    public Optional<Customer> save(Customer customer) {
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("first_name", customer.getFirstName())
+                .addValue("last_name", customer.getLastName());
         try {
-            jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName());
+            Number customerId = simpleJdbcInsert.executeAndReturnKey(params);
+            return findById(customerId.intValue());
         } catch (DataAccessException e) {
             throw new IllegalStateException(INVALID_DATA_MESSAGE);
         }
-        return null;
     }
 
     @Override
-    public Customer update(Customer customer) {
+    public Optional<Customer> update(Customer customer) {
         String sql = "update customer\n" +
                 "set first_name=?," +
                 "last_name=?\n" +
                 "where id=?;";
         try {
             jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getId());
-            return customer;
+            return findById(customer.getId());
         } catch (DataAccessException e) {
             throw new IllegalStateException(INVALID_DATA_MESSAGE);
         }
