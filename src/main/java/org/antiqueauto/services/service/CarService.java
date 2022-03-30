@@ -32,6 +32,10 @@ public class CarService {
         }
     }
 
+    public Car update(Integer id, Car car) {
+        return carDAO.update(id, car)
+                .orElseThrow(() -> new CarNotFoundException(id));
+    }
 
     public List<Car> findAll() {
         return carDAO.findAll();

@@ -89,6 +89,36 @@ public class CarDAOImpl implements CarDAO {
     }
 
     @Override
+    public Optional<Car> update(Integer id, Car car) {
+        String carSql = "update car\n" +
+                "set code=?,\n" +
+                "make=?,\n" +
+                "model=?,\n" +
+                "year=?,\n" +
+                "notes=?\n" +
+                "where id=?;";
+        String billingInfoSql = "update billing_info\n" +
+                "set hourly_rate=?,\n" +
+                "materials_percentage=?,\n" +
+                "insurance_rate=?,\n" +
+                "first_invoice=?,\n" +
+                "first_invoice_mailed=?,\n" +
+                "second_invoice=?,\n" +
+                "second_invoice_mailed=?\n" +
+                "where id=?;";
+        try {
+            BillingInfo billingInfo = car.getBillingInfo();
+            jdbcTemplate.update(carSql, car.getCode(), car.getMake(), car.getModel(), car.getYear(), car.getNotes(), id);
+            jdbcTemplate.update(billingInfoSql, billingInfo.getHourlyRate(), billingInfo.getMaterialsPercentage(),
+                    billingInfo.getInsuranceRate(), billingInfo.getFirstInvoice(), billingInfo.getFirstInvoiceMailed(),
+                    billingInfo.getSecondInvoice(), billingInfo.getSecondInvoiceMailed(), billingInfo.getId());
+            return findById(id);
+        } catch (DataAccessException e) {
+            throw new IllegalStateException(INVALID_DATA_MESSAGE);
+        }
+    }
+
+    @Override
     public List<Car> findByCustomerId(Integer customerId) {
         String sql = "select car.id," +
                 "       car.code,\n" +
