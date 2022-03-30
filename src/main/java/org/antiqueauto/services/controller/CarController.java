@@ -19,6 +19,11 @@ public class CarController {
         return carService.create(customerId, car);
     }
 
+    @PutMapping("/car/{id}")
+    public Car put(@PathVariable Integer id, @RequestBody Car car) {
+        return carService.update(id, car);
+    }
+
     @GetMapping("/car")
     public List<Car> getAll() {
         return carService.findAll();
