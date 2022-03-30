@@ -13,8 +13,8 @@ public class Car {
 
     }
 
-    public Car(String make, String model, Long year, String notes, BillingInfo billingInfo) {
-        this.code = "test";
+    public Car(String code, String make, String model, Long year, String notes, BillingInfo billingInfo) {
+        this.code = code;
         this.make = make;
         this.model = model;
         this.year = year;
