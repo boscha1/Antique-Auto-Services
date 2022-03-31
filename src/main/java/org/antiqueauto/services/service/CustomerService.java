@@ -49,7 +49,8 @@ public class CustomerService {
         customer.setFirstName(updatedCustomer.getFirstName());
         customer.setLastName(updatedCustomer.getLastName());
 
-        return customerDAO.update(customer).orElseThrow(() -> new CustomerNotFoundException(customerId));
+        return customerDAO.update(customer)
+                .orElseThrow(() -> new CustomerNotFoundException(customerId));
     }
 
     public Integer deleteById(Integer customerId) {

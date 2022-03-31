@@ -32,8 +32,16 @@ public class CarService {
         }
     }
 
-    public Car update(Integer id, Car car) {
-        return carDAO.update(id, car)
+    public Car update(Integer id, Car updatedCar) {
+        Car car = findById(id);
+        car.setCode(updatedCar.getCode());
+        car.setMake(updatedCar.getMake());
+        car.setModel(updatedCar.getModel());
+        car.setYear(updatedCar.getYear());
+        car.setNotes(updatedCar.getNotes());
+        car.setBillingInfo(updatedCar.getBillingInfo());
+
+        return carDAO.update(car)
                 .orElseThrow(() -> new CarNotFoundException(id));
     }
 

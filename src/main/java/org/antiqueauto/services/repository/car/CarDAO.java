@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CarDAO {
     Optional<Car> save(Integer customerId, Car car);
-    Optional<Car> update(Integer id, Car car);
+    Optional<Car> update(Car car);
     List<Car> findAll();
     Optional<Car> findById(Integer id);
     Optional<Car> findByCode(String code);

@@ -89,7 +89,7 @@ public class CarDAOImpl implements CarDAO {
     }
 
     @Override
-    public Optional<Car> update(Integer id, Car car) {
+    public Optional<Car> update(Car car) {
         String carSql = "update car\n" +
                 "set code=?,\n" +
                 "make=?,\n" +
@@ -108,11 +108,11 @@ public class CarDAOImpl implements CarDAO {
                 "where id=?;";
         try {
             BillingInfo billingInfo = car.getBillingInfo();
-            jdbcTemplate.update(carSql, car.getCode(), car.getMake(), car.getModel(), car.getYear(), car.getNotes(), id);
+            jdbcTemplate.update(carSql, car.getCode(), car.getMake(), car.getModel(), car.getYear(), car.getNotes(), car.getId());
             jdbcTemplate.update(billingInfoSql, billingInfo.getHourlyRate(), billingInfo.getMaterialsPercentage(),
                     billingInfo.getInsuranceRate(), billingInfo.getFirstInvoice(), billingInfo.getFirstInvoiceMailed(),
                     billingInfo.getSecondInvoice(), billingInfo.getSecondInvoiceMailed(), billingInfo.getId());
-            return findById(id);
+            return findById(car.getId());
         } catch (DataAccessException e) {
             throw new IllegalStateException(INVALID_DATA_MESSAGE);
         }
