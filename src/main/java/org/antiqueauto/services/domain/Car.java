@@ -1,6 +1,7 @@
 package org.antiqueauto.services.domain;
 
 public class Car {
+    private Integer id;
     private String code;
     private String make;
     private String model;
@@ -8,13 +9,31 @@ public class Car {
     private String notes;
     private BillingInfo billingInfo;
 
-    public Car(String make, String model, Long year, String notes, BillingInfo billingInfo) {
-        this.code = "test";
+    public Car() {
+
+    }
+
+    public Car(String code, String make, String model, Long year, String notes, BillingInfo billingInfo) {
+        this.code = code;
         this.make = make;
         this.model = model;
         this.year = year;
         this.notes = notes;
         this.billingInfo = billingInfo;
+    }
+
+    public Car(Integer id, String code, String make, String model, long year, String notes, BillingInfo billingInfo) {
+        this.id = id;
+        this.code = code;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.notes = notes;
+        this.billingInfo = billingInfo;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getCode() {

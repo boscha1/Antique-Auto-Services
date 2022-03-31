@@ -3,6 +3,7 @@ package org.antiqueauto.services.domain;
 import java.util.Date;
 
 public class BillingInfo {
+    private Integer id;
     private Double hourlyRate;
     private Double materialsPercentage;
     private Double insuranceRate;
@@ -10,6 +11,9 @@ public class BillingInfo {
     private Boolean firstInvoiceMailed;
     private Date secondInvoice;
     private Boolean secondInvoiceMailed;
+
+    public BillingInfo() {
+    }
 
     public BillingInfo(Double hourlyRate,
                        Double materialsPercentage,
@@ -24,6 +28,44 @@ public class BillingInfo {
         this.firstInvoiceMailed = false;
         this.secondInvoice = secondInvoice;
         this.secondInvoiceMailed = false;
+    }
+
+    public BillingInfo(Integer id,
+                       Double hourlyRate,
+                       Double materialsPercentage,
+                       Double insuranceRate,
+                       Date firstInvoice,
+                       Boolean firstInvoiceMailed,
+                       Date secondInvoice,
+                       Boolean secondInvoiceMailed) {
+        this.id = id;
+        this.hourlyRate = hourlyRate;
+        this.materialsPercentage = materialsPercentage;
+        this.insuranceRate = insuranceRate;
+        this.firstInvoice = firstInvoice;
+        this.firstInvoiceMailed = firstInvoiceMailed;
+        this.secondInvoice = secondInvoice;
+        this.secondInvoiceMailed = secondInvoiceMailed;
+    }
+
+    public BillingInfo(Double hourlyRate,
+                       Double materialsPercentage,
+                       Double insuranceRate,
+                       Date firstInvoice,
+                       Boolean firstInvoiceMailed,
+                       Date secondInvoice,
+                       Boolean secondInvoiceMailed) {
+        this.hourlyRate = hourlyRate;
+        this.materialsPercentage = materialsPercentage;
+        this.insuranceRate = insuranceRate;
+        this.firstInvoice = firstInvoice;
+        this.firstInvoiceMailed = firstInvoiceMailed;
+        this.secondInvoice = secondInvoice;
+        this.secondInvoiceMailed = secondInvoiceMailed;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Double getHourlyRate() {

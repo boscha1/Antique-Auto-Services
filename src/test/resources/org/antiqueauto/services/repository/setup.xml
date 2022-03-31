@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dataset>
+    <customer id="1" first_name="joe" last_name="smith" />
+    <customer id="2" first_name="bob" last_name="baggins" />
+
+    <car id="1" customer_id="1" code="SMI67" make="ford" model="mustang" year="1967" />
+    <car id="2" customer_id="1" code="SMI85" make="chevy" model="malibu" year="1985" notes="needs engine repair" />
+    <car id="3" customer_id="2" code="BAG70" make="ferrari" model="365" year="1970" />
+    <car id="4" customer_id="2" code="BAG63" make="chevy" model="impala" year="1963" notes="needs engine repair" />
+
+    <billing_info id="1" car_id="1" hourly_rate="70.0" materials_percentage="0.2" insurance_rate="20.0" first_invoice="2022-03-31"
+        first_invoice_mailed="false" second_invoice="2022-04-14" second_invoice_mailed="false"
+    />
+    <billing_info id="2" car_id="2" hourly_rate="70.0" materials_percentage="0.3" insurance_rate="20.0" first_invoice="2022-03-31"
+                  first_invoice_mailed="false" second_invoice="2022-04-14" second_invoice_mailed="false"
+    />
+    <billing_info id="3" car_id="3" hourly_rate="70.0" materials_percentage="0.4" insurance_rate="20.0" first_invoice="2022-03-31"
+                  first_invoice_mailed="false" second_invoice="2022-04-14" second_invoice_mailed="false"
+    />
+    <billing_info id="4" car_id="4" hourly_rate="70.0" materials_percentage="0.15" insurance_rate="20.0" first_invoice="2022-03-31"
+                  first_invoice_mailed="false" second_invoice="2022-04-14" second_invoice_mailed="false"
+    />
+</dataset>
