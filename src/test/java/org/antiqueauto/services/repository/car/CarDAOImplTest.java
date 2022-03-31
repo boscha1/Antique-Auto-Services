@@ -81,7 +81,9 @@ class CarDAOImplTest {
                 .10,
                 20.0,
                 new Date(2022, Calendar.APRIL, 1),
-                new Date(2022, Calendar.APRIL, 15)
+                true,
+                new Date(2022, Calendar.APRIL, 15),
+                true
         );
         Car car = new Car("testCode", "testMake", "testModel", 9999L, "testNotes", billingInfo);
 
@@ -134,5 +136,49 @@ class CarDAOImplTest {
         Assertions.assertEquals("mustang", result.getModel());
         Assertions.assertEquals(1967L, result.getYear());
         Assertions.assertNull(result.getNotes());
+    }
+
+    @Test
+    @DisplayName("Should get one car by code")
+    @DatabaseSetup("/org/antiqueauto/services/repository/setup.xml")
+    @DatabaseTearDown(
+            value = "/org/antiqueauto/services/repository/setup.xml",
+            type = DatabaseOperation.DELETE_ALL
+    )
+    void update() {
+        Car car = objectUnderTest.findById(1).orElse(null);
+        BillingInfo billingInfo = car.getBillingInfo();
+        assert car != null;
+        Assertions.assertEquals("SMI67", car.getCode());
+        Assertions.assertEquals("ford", car.getMake());
+        Assertions.assertEquals("mustang", car.getModel());
+        Assertions.assertEquals(1967L, car.getYear());
+        Assertions.assertNull(car.getNotes());
+        Assertions.assertNotNull(billingInfo.getId());
+        
+        car.setCode("test");
+        car.setMake("test");
+        car.setModel("test");
+        car.setYear(9999L);
+        car.setNotes("test");
+        billingInfo.setHourlyRate(99.9);
+        billingInfo.setMaterialsPercentage(99.9);
+        billingInfo.setInsuranceRate(99.9);
+        billingInfo.setFirstInvoice(new Date(1, Calendar.JANUARY, 1));
+        billingInfo.setFirstInvoiceMailed(true);
+        billingInfo.setSecondInvoice(new Date(1, Calendar.JANUARY, 1));
+        billingInfo.setSecondInvoiceMailed(true);
+
+        Car result = objectUnderTest.update(car).orElse(null);
+        
+        Assertions.assertEquals("test", result.getCode());
+        Assertions.assertEquals("test", result.getMake());
+        Assertions.assertEquals("test", result.getModel());
+        Assertions.assertEquals(9999L, result.getYear());
+        Assertions.assertEquals("test", result.getNotes());
+        Assertions.assertEquals(99.9, result.getBillingInfo().getHourlyRate());
+        Assertions.assertEquals(99.9, result.getBillingInfo().getMaterialsPercentage());
+        Assertions.assertEquals(99.9, result.getBillingInfo().getInsuranceRate());
+
     }
 }
