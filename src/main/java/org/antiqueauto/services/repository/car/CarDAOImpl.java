@@ -93,7 +93,7 @@ public class CarDAOImpl implements CarDAO {
         String carSql = "update car\n" +
                 "set code=?,\n" +
                 "make=?,\n" +
-                "model=?,\n" +
+                "model=?,\n"  +
                 "year=?,\n" +
                 "notes=?\n" +
                 "where id=?;";
