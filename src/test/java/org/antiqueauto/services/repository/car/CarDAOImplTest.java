@@ -69,13 +69,13 @@ class CarDAOImplTest {
     }
 
     @Test
-    @DisplayName("Should save one car")
+    @DisplayName("Should save one car that has notes")
     @DatabaseSetup("/org/antiqueauto/services/repository/empty-car-setup.xml")
     @DatabaseTearDown(
             value = "/org/antiqueauto/services/repository/empty-car-setup.xml",
             type = DatabaseOperation.DELETE_ALL
     )
-    void save() {
+    void saveWithNotes() {
         BillingInfo billingInfo = new BillingInfo(
                 20.0,
                 .10,
@@ -91,6 +91,34 @@ class CarDAOImplTest {
 
         assert result != null;
         Assertions.assertNotNull(result.getId());
+        Assertions.assertNotNull(result.getNotes());
+        Assertions.assertNotNull(result.getBillingInfo().getId());
+    }
+
+    @Test
+    @DisplayName("Should save one car that does not have notes")
+    @DatabaseSetup("/org/antiqueauto/services/repository/empty-car-setup.xml")
+    @DatabaseTearDown(
+            value = "/org/antiqueauto/services/repository/empty-car-setup.xml",
+            type = DatabaseOperation.DELETE_ALL
+    )
+    void saveWithoutNotes() {
+        BillingInfo billingInfo = new BillingInfo(
+                20.0,
+                .10,
+                20.0,
+                new Date(2022, Calendar.APRIL, 1),
+                true,
+                new Date(2022, Calendar.APRIL, 15),
+                true
+        );
+        Car car = new Car("testCode", "testMake", "testModel", 9999L, null, billingInfo);
+
+        Car result = objectUnderTest.save(1, car).orElse(null);
+
+        assert result != null;
+        Assertions.assertNotNull(result.getId());
+        Assertions.assertNull(result.getNotes());
         Assertions.assertNotNull(result.getBillingInfo().getId());
     }
 
