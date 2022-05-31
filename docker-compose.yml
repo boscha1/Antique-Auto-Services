@@ -4,7 +4,6 @@ services:
     image: 'antique-auto-services.jar'
     ports:
       - "8080:8080"
-    network_mode: 'host'
     depends_on:
       - PostgreSQL
     environment:
