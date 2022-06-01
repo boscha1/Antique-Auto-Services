@@ -1,23 +1,16 @@
 version: '3.1'
 services:
   API:
-    image: 'antique-auto-services.jar'
+    image: abosch1/antique-auto-services
     ports:
-      - "8080:8080"
-    network_mode: 'host'
+      - "8081:8081"
     depends_on:
       - PostgreSQL
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/postgres
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   PostgreSQL:
     image: postgres
     ports:
       - "5432:5432"
-    network_mode: 'host'
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
