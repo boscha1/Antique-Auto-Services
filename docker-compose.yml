@@ -17,4 +17,6 @@ services:
   API:
     image: abosch1/antique-auto-services
     ports:
-      - "8081:8080"
+      - "8080:8080"
+    depends_on:
+      - PostgreSQL
