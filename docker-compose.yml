@@ -1,7 +1,10 @@
 version: '3.1'
 services:
   PostgreSQL:
+    container_name: pgdb
     image: postgres
+    networks:
+      - mynet
     ports:
       - "5432:5432"
     environment:
@@ -15,8 +18,14 @@ services:
       retries: 5
 
   API:
+    container_name: antique-auto-server
     image: abosch1/antique-auto-services
+    networks:
+      - mynet
     ports:
       - "8080:8080"
     depends_on:
       - PostgreSQL
+networks:
+  mynet:
+    driver: bridge
