@@ -26,8 +26,7 @@ public class CarController {
 
     @GetMapping("/car")
     public List<Car> getAll() {
-        List<Car> cars = carService.findAll();
-        return cars;
+        return carService.findAll();
     }
 
     @GetMapping("/car/{id}")
