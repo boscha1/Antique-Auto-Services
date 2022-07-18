@@ -5,6 +5,7 @@ import org.antiqueauto.services.domain.Car;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -18,10 +19,12 @@ public class CarDAOImpl implements CarDAO {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final static String INVALID_DATA_MESSAGE = "Invalid Data Access";
 
-    public CarDAOImpl(JdbcTemplate jdbcTemplate, DataSource dataSource) {
+    public CarDAOImpl(JdbcTemplate jdbcTemplate, DataSource dataSource, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("car")
                 .usingGeneratedKeyColumns("id");
@@ -30,10 +33,12 @@ public class CarDAOImpl implements CarDAO {
     @Override
     public List<Car> findAll() {
         String sql = "select car.id, car.code, car.make, car.model, car.year, car.notes,\n" +
-                "       bi.id, bi.hourly_rate, bi.materials_percentage, bi.insurance_rate, \n" +
-                "       bi.first_invoice, bi.first_invoice_mailed, bi.second_invoice, bi.second_invoice_mailed\n" +
-                "from car\n" +
-                "join billing_info bi on car.id = bi.car_id;";
+                "                       bi.id, bi.hourly_rate, bi.materials_percentage, bi.insurance_rate,\n" +
+                "                       bi.first_invoice, bi.first_invoice_mailed, bi.second_invoice, bi.second_invoice_mailed,\n" +
+                "                       c.id as customer_id\n" +
+                "                from car\n" +
+                "                join billing_info bi on car.id = bi.car_id\n" +
+                "                    join customer c on c.id = car.customer_id;";
         try {
             return jdbcTemplate.query(sql, new CarRowMapper());
         } catch (DataAccessException e) {
@@ -44,10 +49,12 @@ public class CarDAOImpl implements CarDAO {
     @Override
     public Optional<Car> findById(Integer id) {
         String sql = "select car.id, car.code, car.make, car.model, car.year, car.notes,\n" +
-                "       bi.id, bi.hourly_rate, bi.materials_percentage, bi.insurance_rate, \n" +
-                "       bi.first_invoice, bi.first_invoice_mailed, bi.second_invoice, bi.second_invoice_mailed\n" +
-                "from car\n" +
-                "join billing_info bi on car.id = bi.car_id\n" +
+                "                       bi.id, bi.hourly_rate, bi.materials_percentage, bi.insurance_rate,\n" +
+                "                       bi.first_invoice, bi.first_invoice_mailed, bi.second_invoice, bi.second_invoice_mailed,\n" +
+                "                       c.id as customer_id\n" +
+                "                from car\n" +
+                "                join billing_info bi on car.id = bi.car_id\n" +
+                "                    join customer c on c.id = car.customer_id\n" +
                 "where car.id=?;";
         try {
             return jdbcTemplate.query(sql, new CarRowMapper(), id)
@@ -126,6 +133,7 @@ public class CarDAOImpl implements CarDAO {
                 "       car.model,\n" +
                 "       car.year,\n" +
                 "       car.notes,\n" +
+                "       :customerId as customer_id,\n" +
                 "       bi.id,\n" +
                 "       bi.hourly_rate,\n" +
                 "       bi.materials_percentage,\n" +
@@ -135,9 +143,11 @@ public class CarDAOImpl implements CarDAO {
                 "       bi.second_invoice,\n" +
                 "       bi.second_invoice_mailed\n" +
                 "from car join billing_info bi on car.id = bi.car_id\n" +
-                "where customer_id=?;";
+                "where customer_id=:customerId;";
         try {
-            return jdbcTemplate.query(sql, new CarRowMapper(), customerId);
+            SqlParameterSource params = new MapSqlParameterSource("customerId", customerId);
+            return namedParameterJdbcTemplate.query(sql, params, new CarRowMapper());
+//            return jdbcTemplate.query(sql, new CarRowMapper(), customerId);
         } catch (DataAccessException e) {
             throw new IllegalStateException(INVALID_DATA_MESSAGE);
         }

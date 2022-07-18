@@ -23,6 +23,7 @@ public class CarRowMapper implements RowMapper<Car> {
                 rs.getString("model"),
                 rs.getLong("year"),
                 rs.getString("notes"),
+                rs.getInt("customer_id"),
                 rowMapper.mapRow(rs, rowNum)
         );
     }

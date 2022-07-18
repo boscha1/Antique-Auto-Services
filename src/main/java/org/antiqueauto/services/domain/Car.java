@@ -7,6 +7,7 @@ public class Car {
     private String model;
     private Long year;
     private String notes;
+    private Integer customerId;
     private BillingInfo billingInfo;
 
     public Car() {
@@ -22,13 +23,14 @@ public class Car {
         this.billingInfo = billingInfo;
     }
 
-    public Car(Integer id, String code, String make, String model, long year, String notes, BillingInfo billingInfo) {
+    public Car(Integer id, String code, String make, String model, long year, String notes, Integer customerId, BillingInfo billingInfo) {
         this.id = id;
         this.code = code;
         this.make = make;
         this.model = model;
         this.year = year;
         this.notes = notes;
+        this.customerId = customerId;
         this.billingInfo = billingInfo;
     }
 
@@ -82,5 +84,9 @@ public class Car {
 
     public void setBillingInfo(BillingInfo billingInfo) {
         this.billingInfo = billingInfo;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
     }
 }
