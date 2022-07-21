@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,6 +71,15 @@ public class CustomerDAOImpl implements CustomerDAO {
         try {
             jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getId());
             return findById(customer.getId());
+        } catch (DataAccessException e) {
+            throw new IllegalStateException(INVALID_DATA_MESSAGE);
+        }
+    }
+
+    @Override
+    public boolean existsById(Integer id) {
+        try {
+            return Boolean.TRUE.equals(jdbcTemplate.query("select id from customer where id=?", ResultSet::next, id));
         } catch (DataAccessException e) {
             throw new IllegalStateException(INVALID_DATA_MESSAGE);
         }

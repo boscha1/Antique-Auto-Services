@@ -39,6 +39,8 @@ public class CarService {
         car.setModel(updatedCar.getModel());
         car.setYear(updatedCar.getYear());
         car.setNotes(updatedCar.getNotes());
+        if (customerDAO.existsById(updatedCar.getCustomerId()))
+            car.setCustomerId(updatedCar.getCustomerId());
         car.setBillingInfo(updatedCar.getBillingInfo());
 
         return carDAO.update(car)

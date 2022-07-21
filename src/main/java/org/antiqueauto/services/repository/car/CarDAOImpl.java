@@ -99,6 +99,7 @@ public class CarDAOImpl implements CarDAO {
     public Optional<Car> update(Car car) {
         String carSql = "update car\n" +
                 "set code=?,\n" +
+                "customer_id=?,\n" +
                 "make=?,\n" +
                 "model=?,\n"  +
                 "year=?,\n" +
@@ -115,7 +116,7 @@ public class CarDAOImpl implements CarDAO {
                 "where id=?;";
         try {
             BillingInfo billingInfo = car.getBillingInfo();
-            jdbcTemplate.update(carSql, car.getCode(), car.getMake(), car.getModel(), car.getYear(), car.getNotes(), car.getId());
+            jdbcTemplate.update(carSql, car.getCode(), car.getCustomerId(), car.getMake(), car.getModel(), car.getYear(), car.getNotes(), car.getId());
             jdbcTemplate.update(billingInfoSql, billingInfo.getHourlyRate(), billingInfo.getMaterialsPercentage(),
                     billingInfo.getInsuranceRate(), billingInfo.getFirstInvoice(), billingInfo.getFirstInvoiceMailed(),
                     billingInfo.getSecondInvoice(), billingInfo.getSecondInvoiceMailed(), billingInfo.getId());

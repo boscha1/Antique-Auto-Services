@@ -10,5 +10,6 @@ public interface CustomerDAO {
     Optional<Customer> findById(Integer customerId);
     Optional<Customer> save(Customer customer);
     Optional<Customer> update(Customer customer);
+    boolean existsById(Integer id);
     void delete(Integer id);
 }
